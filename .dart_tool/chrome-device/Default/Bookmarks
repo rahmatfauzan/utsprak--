@@ -1,0 +1,176 @@
+{
+   "checksum": "76c554aa2851d3d5c0cce6d9cc98cb94",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13297826031015321",
+            "date_last_used": "0",
+            "guid": "fa6421e4-bc2b-4142-b851-52a717e18c49",
+            "id": "15",
+            "name": "Welcome to Python.org",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.python.org/"
+         }, {
+            "date_added": "13319769910027105",
+            "date_last_used": "0",
+            "guid": "730d3c89-e6a6-4ef6-922a-38197a1d3f36",
+            "id": "16",
+            "name": "My Profile | DesignCrowd",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.designcrowd.com/designer-account/overview.aspx"
+         }, {
+            "date_added": "13319770005959689",
+            "date_last_used": "0",
+            "guid": "b8eedd9f-78c8-41ce-8260-597b1b2304a2",
+            "id": "17",
+            "name": "Drive Saya - Google Drive",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://drive.google.com/drive/u/0/my-drive"
+         }, {
+            "date_added": "13319770014328340",
+            "date_last_used": "13336973127333663",
+            "guid": "b4dcbe17-4dc1-479a-88a4-508aa82b4eff",
+            "id": "18",
+            "name": "Kotak Masuk (2.208) - ffauzan091@gmail.com - Gmail",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://mail.google.com/mail/u/1/#inbox"
+         }, {
+            "date_added": "13319789336978922",
+            "date_last_used": "0",
+            "guid": "2f95f321-d24d-439e-ad66-7935cc4b9a08",
+            "id": "19",
+            "name": "Dashboard | Freelancer",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.freelancer.co.id/dashboard"
+         }, {
+            "date_added": "13319989351806649",
+            "date_last_used": "13320108246286091",
+            "guid": "ee3f1307-ad03-4d55-a1c9-90f21350123d",
+            "id": "20",
+            "name": ".:: Sistem Informasi Akademik Universitas Islam Negeri Maulana Malik Ibrahim Malang",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://siakad.uin-malang.ac.id/"
+         }, {
+            "date_added": "13328007832062736",
+            "date_last_used": "0",
+            "guid": "aaa6929c-5b6d-4178-811b-0902014bd83e",
+            "id": "21",
+            "name": "Google Terjemahan",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://translate.google.co.id/?hl=id&sl=en&tl=id&text=The%20error%20message%20is%20indicating%20that%20there%20is%20an%20issue%20with%20the%20data%20type%20being%20used%20for%20the%20id_user%20column%20in%20the%20database.%20It%20seems%20that%20the%20id_user%20column%20is%20defined%20as%20an%20integer%2C%20but%20the%20value%20being%20passed%20to%20it%20is%20an%20array%2C%20which%20cannot%20be%20converted%20to%20an%20integer.%0A%0AOne%20possible%20solution%20is%20to%20make%20sure%20that%20the%20id_user%20value%20is%20extracted%20from%20the%20database%20query%20result%20as%20a%20single%20integer%20value%2C%20rather%20than%20an%20array.%20You%20can%20modify%20your%20code%20like%20this%3A&op=translate"
+         }, {
+            "date_added": "13330768892582686",
+            "date_last_used": "0",
+            "guid": "a7b13ff5-288e-45eb-ba9a-de99b1bdd82d",
+            "id": "22",
+            "name": "Document",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "http://localhost/futsal_kuy%20-%20Copy/user.php"
+         }, {
+            "date_added": "13339514571445933",
+            "date_last_used": "0",
+            "guid": "5f5a4eca-6608-4842-8cb1-69ee413027ce",
+            "id": "23",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Projek Short Movie (mamud) - Google Dokumen",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://docs.google.com/document/d/1YKY5tCpAk1HCJVM2sfG2qxCJp8xnnw-jhRo6a1CfUlg/edit"
+         }, {
+            "date_added": "13339953464916116",
+            "date_last_used": "0",
+            "guid": "faf7c9ec-83b5-48f8-8b43-5f8100162167",
+            "id": "24",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Soal-Soal Sensor Menarik | PDF",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.scribd.com/document/486856668/soal-soal-sensor-menarik"
+         }, {
+            "date_added": "13343394713977432",
+            "date_last_used": "0",
+            "guid": "896d772e-19a5-4587-b86a-675102b3ce9e",
+            "id": "9",
+            "name": "Lenovo Support",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://support.lenovo.com/"
+         }, {
+            "date_added": "13343394713977252",
+            "date_last_used": "0",
+            "guid": "7d453e8b-0de9-4b1b-8b0d-7ec8be01a68a",
+            "id": "8",
+            "name": "Lenovo",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.lenovo.com/"
+         }, {
+            "date_added": "13343394713973964",
+            "date_last_used": "0",
+            "guid": "31a1375a-0dce-411c-869a-6c917d35e66f",
+            "id": "7",
+            "name": "McAfee",
+            "show_icon": false,
+            "source": "oem_preload",
+            "type": "url",
+            "url": "https://www.mcafee.com/consumer/v/browserfav/lenovo.html"
+         } ],
+         "date_added": "13343394713670124",
+         "date_last_used": "0",
+         "date_modified": "13343412057851939",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13343394713670126",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13343394713670127",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCPuqopCLAQAAEgAgASoYQWh4TDJiVTRqaEJvRGZYY1RVREtJdz09oAYMEqkBCBgSpAEKHEhha2JFOVBUK3lyckVtWGdZL2kvZmNFTWdaST0SJGZhZjdjOWVjLTgzYjUtNDhmOC04YjQzLTVmODEwMDE2MjE2NxgAIAIoAjD7+YCFuTE4+dfmk6wxQNz1/oS5MUocck9Lemg5T3VCSzJwYmU4TDluczBJRU5kc1ZZPVogIh7/0DNGbGxNYTBaMFJKRjhtYWhwK00zOHltbks3TT1lMnnrmRKoAQgWEqMBChxXODFWUms4VzZlTEdtRjlvYkZKZ3NxYmVUYnM9EiRhN2IxM2ZmNS0yODhlLTQ1ZWItYmE5YS1kZTk5YjFiZGQ4MmQYACACKAIw9/mAhbkxOKHuoPiJMUDb9f6EuTFKHGprdFBlSTQxbDBTUHFqeENLZ1gzaDhCT0E5QT1aHyId/0NpZVVTeXVBOWJ2VGZYM1JUckl5a2Z3UE9TRT1l6A+MZRKoAQgSEqMBChxIMzh6VkZ2YkFDZXcrNnlnZjZYY3BmVkJ6TDA9EiRiNGRjYmUxNy00ZGMxLTQ3OWEtODhhNC01MDhhYTgyYjRlZmYYACACKAIw9vmAhbkxOJ+9yvvgMEDa9f6EuTFKHFZlTTJpQUZpTDdtdjFoRjFXRjJUMjdnYWhzRT1aHyId82pJZysvZTlkNHZvNldua1Z6a0luV2xLenJnQT1li6CM0RKoAQgUEqMBChxab1Zrclo1Z3VHRlFjYU5YaHAveHQwbmwwTDA9EiRlZTNmMTMwNy1hZDAzLTRkNTUtYTFjOS05MGYyMTM1MDEyM2QYACACKAIw9fmAhbkxOOLtleThMEDb9f6EuTFKHGF6WTFsbnRTa0Q3MFBlRE9EV3hjZGZpN0duWT1aHyId/GFVSnI5YitiVThBOUpSNW9aMCtkSnF3UnFtND1lGjZ0TxKoAQgTEqMBChxjS3hJcXIxa0pvYVhDTlZ4UDhHa09HM28xUmc9EiQyZjk1ZjMyMS1kMjRkLTQzOWUtYWQ2Ni03OTM1Y2M0YjlhMDgYACACKAIw+fmAhbkxOMfq5YThMEDa9f6EuTFKHDkzWVdDTEpCQlRZQzVaSFdXd1ZPanlqQnFUOD1aHyId+XcvV1RQbUloTG5tL2M0d0UzTmhDL0duSTI3ND1ld2GDNhKoAQgVEqMBChxrSEFBSEpqbHJZeTgyUHlHd2N2N1JSKzdYUms9EiRhYWE2OTI5Yy01YjZkLTQxNzgtODExYi0wOTAyMDE0YmQ4M2UYACACKAIw9PmAhbkxOMeW19P/MEDb9f6EuTFKHEwxZlJ5RVlITmlmMG54SWhVUFIxS2xxbmNnQT1aHyId/lFIQlh5b0YrMWVONkVVWHcrMFlvMW1FSzliUT1lxc+QARKoAQgREqMBChxqdXI4VW5sWnZ4Y1pTMmdSeXM5aWFEQ0FqRVE9EiRiOGVlZGQ5Zi03OGM4LTQxY2UtODI2MC01OTdiMWIyMzA0YTIYACACKAIw8/mAhbkxOOSByvvgMEDZ9f6EuTFKHGZlc3BkbmZNSmY3dEdQMDVNNGFTMEQvMXRsMD1aHyId5ytKRDFZa0ZqUk1qcW9yK2ZjeGYyR2J0MWh2OD1l+pHe2xKpAQgXEqQBChxWVE9sODE3UjE3YzdaK3Z0bHcwbnVOTCt5WkU9EiQ1ZjVhNGVjYS02NjA4LTQ4NDItOGNiMS02OWVlNDEzMDI3Y2UYACACKAIw8vmAhbkxOKvlwsKqMUDb9f6EuTFKHHJqcFFQRjFtaHlBdjRIM25NbDVmeDczMHpVST1aICIe/6E5bWc2Q21rNmoyS0Z2UTFTZHNpRkRiYXJlUEU9ZdVHTTQSiQEIARKEAQoceXhKLzZmdmtlY3I3a3A1RVF6QjR0V0xwZGJFPRIkYTM3Mjc0ZTItZDRjZi01N2ExLWI0MjgtZmNiYTllMWQ2OTVkGAAgACgAMKWCr+ywMDjOzqeO/y9Azs6njv8vShxhUkNXTGdoRjliNUlucUtJRHZ1Si9qdlFrRmM9WgBlAAAAABKJAQgCEoQBChxZY1NUb252RVNQd3FDczRMMmNyVmh2NjhMOTg9EiRkMmEwZWI4Yy1jY2NkLTVkYTItODQzZS0zY2NlMTZiNDg1NWUYACAAKAAwpYKv7LAwON3Op47/L0DdzqeO/y9KHG9QVmtod0JSYlY2NUtDV1IyK0lPTkhXb091OD1aAGUAAAAAEqcBCA8SogEKHFBtS2JUWmNsV3ArejRqanFCdDFIT2d6MGtXVT0SJGZhNjQyMWU0LWJjMmItNDE0Mi1iODUxLTUyYTcxN2UxOGM0ORgAIAIoAjD6+YCFuTE4r4KdoZgwQNj1/oS5MUocSXVxME9taFBRRGhYdHpQMXViQmpFR3Z2SHFnPVoeIhw4Nkh2K1ZaWGhYQXlEK2sxVlg4SU8yNkRmN0U9ZdVS2/ESqAEIEBKjAQocRGp2SFJIcXBLTXpEVWFBamZyeXBGUFdTMzZZPRIkNzMwZDNjODktZTZhNi00ZWY2LTkyMmEtMzgxOTdhMWQzZjM2GAAgAigCMPj5gIW5MTjXocT74DBA2fX+hLkxShxsUmxvZ1h3dUN5ZTdKdzJXeFdRZzFFTUxKRDQ9Wh8iHc5aUUsrY1NvVTd0cjVUNDF3cEl1ZTVQeklqa2s9ZZxPuQQSiQEIAxKEAQocbmpnRHU4OGVDcnZYcDg2cEQ3ZkhHY3FGcDg4PRIkOWI5N2ExZDUtOTdmZi01MWNlLWI1MWUtZTQxNWIxYjliY2Q4GAAgACgAMKWCr+ywMDicz6eO/y9AnM+njv8vShx5ek5CMDFjbjU0QTdjUlUwdVQrL1BnbVR0VW89WgBlAAAAADAAOAA=",
+   "version": 1
+}

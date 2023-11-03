@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "153798600236",
+    "project_id": "bioskop-d270d",
+    "storage_bucket": "bioskop-d270d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153798600236:android:b10442d2520544b518d389",
+        "android_client_info": {
+          "package_name": "com.example.bioskop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPpAKQuo3Y-2w0Dv7vWCKDizTF_Ai3us4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153798600236:android:116b206d120860dd18d389",
+        "android_client_info": {
+          "package_name": "com.example.biosskop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPpAKQuo3Y-2w0Dv7vWCKDizTF_Ai3us4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153798600236:android:4de41c2daac4882b18d389",
+        "android_client_info": {
+          "package_name": "com.example.utsprak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPpAKQuo3Y-2w0Dv7vWCKDizTF_Ai3us4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
