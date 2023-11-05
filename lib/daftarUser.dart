@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
-import 'package:utsprak/home.dart';
-import 'package:utsprak/main.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart';
+import 'package:utsprak/model/api_model.dart';
+import 'package:utsprak/model/api_service.dart';
 
 class AddUserPage extends StatefulWidget {
   @override
@@ -11,7 +10,8 @@ class AddUserPage extends StatefulWidget {
 }
 
 class _AddUserPageState extends State<AddUserPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final firebase_auth.FirebaseAuth _auth =
+      firebase_auth.FirebaseAuth.instance; // Use the prefix
   final TextEditingController namaController = TextEditingController();
   final TextEditingController noTlpController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
@@ -43,16 +43,16 @@ class _AddUserPageState extends State<AddUserPage> {
             ElevatedButton(
               onPressed: () async {
                 final myUser = MyUser(
-                  // Menggunakan nama kelas MyUser yang telah diganti
+                  // Use the User model from your local code
                   nama: namaController.text,
-                  email:
-                      _auth.currentUser?.email ?? "", // Alamat email pengguna
+                  email: _auth.currentUser?.email ?? "", // User's email address
                   noTlp: noTlpController.text,
                   alamat: alamatController.text,
                   kategori: "user",
                 );
 
-                await Database.tambahUser(user: myUser); // Menggunakan MyUser
+                await APIServices.addUser(
+                    myUser); // Use the addUser method from APIServices
 
                 Navigator.of(context).pushReplacementNamed('/home');
               },

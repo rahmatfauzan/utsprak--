@@ -1,35 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart';
+import 'package:utsprak/model/api_model.dart';
+import 'package:utsprak/model/api_service.dart';
 
 
 class TimeSelectionPage extends StatefulWidget {
-  TimeSelectionPage({Key? key, required this.nama}) : super(key: key);
-  final String nama;
+  TimeSelectionPage({Key? key, required this.id}) : super(key: key);
+  final String id;
 
   @override
   _TimeSelectionPageState createState() => _TimeSelectionPageState();
 }
 
 class _TimeSelectionPageState extends State<TimeSelectionPage> {
-  movie? dataMovie;
+
+  Movie dataMovie = Movie(); // Initialize dataMovie as an empty Movie object
 
   @override
   void initState() {
     super.initState();
-    loadMovieData();
+    fetchMovies();
   }
 
-  Future<void> loadMovieData() async {
+  void fetchMovies() async {
     try {
-      movie movieData = await Database.getMovie(nama: widget.nama);
+      Movie movie = await APIServices.getMovieById(widget.id);
       setState(() {
-        dataMovie = movieData;
+        dataMovie = movie;
       });
     } catch (e) {
-      print(e.toString());
+      print("Error fetching movie: $e");
     }
   }
 
@@ -61,7 +62,10 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => SeatSelectionPage(
-                        selectedTime: time, movieName: dataMovie!.nama),
+                      selectedTime: time,
+                      movieid: dataMovie.idMovie ?? "",
+                      movieName: dataMovie.name ?? "",
+                    ),
                   ),
                 );
               },
@@ -70,7 +74,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               subtitle:
-                  Text(dataMovie != null ? dataMovie!.nama : "Loading..."),
+                  Text(dataMovie != null ? dataMovie.name ?? "" : "Loading..."),
               trailing: Icon(Icons.arrow_forward_ios),
             ),
           );
@@ -82,9 +86,13 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
 
 class SeatSelectionPage extends StatefulWidget {
   final String selectedTime;
+  final String movieid;
   final String movieName;
 
-  SeatSelectionPage({required this.selectedTime, required this.movieName});
+  SeatSelectionPage(
+      {required this.selectedTime,
+      required this.movieid,
+      required this.movieName});
 
   @override
   _SeatSelectionPageState createState() => _SeatSelectionPageState();
@@ -133,14 +141,11 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
   }
 
   Future<void> checkSeatAvailability() async {
-    final film = widget.movieName;
+    final idMovie = widget.movieid;
     final waktu = widget.selectedTime;
 
     // Panggil method getBookingsByFilmAndWaktu
-    final bookings = await Database.getBookingsByFilmAndWaktu(
-      film: film,
-      waktu: waktu,
-    );
+    final bookings = await APIServices.getBookingById(idMovie, waktu);
 
     setState(() {
       bookedSeats = bookings;
@@ -236,11 +241,11 @@ class _SeatSelectionPageState extends State<SeatSelectionPage> {
                                 email: _auth.currentUser?.email ??
                                     "", // Gantilah dengan pengguna yang sesuai
                                 jam: widget.selectedTime, // Jam film
-                                film: widget.movieName, // Nama film
+                                film: widget.movieid, // Nama film
                                 kursi: seat, // Nomor kursi
                               );
 
-                              Database.tambahBooking(booking: newBooking);
+                              APIServices.addBooking(newBooking);
                             }
 
                             Navigator.of(context).popUntil(

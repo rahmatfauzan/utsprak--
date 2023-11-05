@@ -95,7 +95,7 @@ class MyUser {
       "email": email,
       "noTlp": noTlp,
       "alamat": alamat,
-      "alamat": kategori,
+      "kategori": kategori,
     };
   }
 

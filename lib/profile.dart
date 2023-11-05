@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:utsprak/login.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart';
+import 'package:utsprak/model/api_model.dart';
+import 'package:utsprak/model/api_service.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  MyUser? _currentUser;
+  MyUser dataUser = MyUser();
 
   @override
   void initState() {
@@ -26,11 +26,13 @@ class _ProfileState extends State<Profile> {
     if (user != null) {
       final email = user.email;
       if (email != null) {
-        final myUser = await Database.getUser(email: email);
-        if (myUser != null) {
+        try {
+          MyUser movie = await APIServices.getUserByEmail(email);
           setState(() {
-            _currentUser = myUser;
+            dataUser = movie;
           });
+        } catch (e) {
+          print("Error fetching movie: $e");
         }
       }
     }
@@ -44,28 +46,25 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             const SizedBox(height: 40),
-            if (_currentUser != null)
+            if (dataUser != null)
               CircleAvatar(
                 radius: 70,
-                backgroundImage:
-                    AssetImage('assets/image/user.jpg'), // Pastikan ini benar
+                backgroundImage: AssetImage('assets/image/user.jpg'),
               ),
             const SizedBox(height: 20),
-
-            if (_currentUser == null)
+            if (dataUser == null)
               Center(
                 child: Container(
-                  width: 60.0, // Lebar container
-                  height: 60.0, // Tinggi container
+                  width: 60.0,
+                  height: 60.0,
                   decoration: BoxDecoration(
-                    shape: BoxShape
-                        .circle, // Mengatur bentuk container menjadi lingkaran
-                    color: Colors.white, // Warna latar belakang container
+                    shape: BoxShape.circle,
+                    color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey, // Warna bayangan
-                        blurRadius: 6.0, // Radius bayangan
-                        spreadRadius: 1.0, // Sebaran bayangan
+                        color: Colors.grey,
+                        blurRadius: 6.0,
+                        spreadRadius: 1.0,
                       ),
                     ],
                   ),
@@ -79,17 +78,15 @@ class _ProfileState extends State<Profile> {
             else
               Column(
                 children: [
-                  ProfileInfo("Name", _currentUser?.nama ?? ""),
+                  ProfileInfo("Name", dataUser?.nama ?? ""),
                   const SizedBox(height: 20),
-                  ProfileInfo("Phone", _currentUser?.noTlp ?? ""),
+                  ProfileInfo("Phone", dataUser?.noTlp ?? ""),
                   const SizedBox(height: 20),
-                  ProfileInfo("Email", _currentUser?.email ?? ""),
+                  ProfileInfo("Email", dataUser?.email ?? ""),
                 ],
               ),
-
             const SizedBox(height: 20),
-
-            if (_currentUser != null)
+            if (dataUser != null)
               ElevatedButton(
                 onPressed: () {
                   _auth.signOut();

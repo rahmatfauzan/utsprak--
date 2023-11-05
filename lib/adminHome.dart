@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:utsprak/AdminTambahMovie.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart';
+import 'package:utsprak/model/api_model.dart';
+import 'package:utsprak/model/api_service.dart';
 
 class AdminHome extends StatefulWidget {
   AdminHome({Key? key}) : super(key: key);
@@ -12,6 +11,25 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
+  List<Movie> dataMovies = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMovies();
+  }
+
+  void fetchMovies() async {
+    try {
+      List<Movie> movies = await APIServices.getMovie();
+      setState(() {
+        dataMovies = movies;
+      });
+    } catch (e) {
+      print("Error fetching movies: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,32 +39,32 @@ class _AdminHomeState extends State<AdminHome> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddMovie()),
+            onPressed: () async {
+              final shouldRefresh = await Navigator.of(context).push<bool>(
+                MaterialPageRoute(
+                  builder: (context) => AddMovie(),
+                ),
               );
+              if (shouldRefresh == true) {
+                fetchMovies();
+              }
             },
           ),
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: Database.getData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
-          } else if (snapshot.hasData) {
-            final dataMovies = snapshot.data!.docs.map((doc) {
-              final data = doc.data() as Map<String, dynamic>;
-              return movie.fromJson(data);
-            }).toList();
-            return ListView.builder(
+      body: dataMovies.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
+              ),
+            )
+          : ListView.builder(
               itemCount: dataMovies.length,
               itemBuilder: (context, index) {
                 return Dismissible(
-                  key: Key(dataMovies[index].nama),
+                  key: Key(dataMovies[index].idMovie ?? ""),
                   background: Container(
-                    color: Colors.red, // Latar belakang warna merah
+                    color: Colors.red,
                     alignment: Alignment.centerRight,
                     padding: EdgeInsets.only(right: 20),
                     child: Icon(
@@ -54,23 +72,29 @@ class _AdminHomeState extends State<AdminHome> {
                       color: Colors.white,
                     ),
                   ),
-                  onDismissed: (direction) {
-                    // Tindakan saat item dihapus
-                    Database.deleteMovie(nama: dataMovies[index].nama);
-                    setState(() {
-                      dataMovies.removeAt(index);
-                    });
+                  onDismissed: (direction) async {
+                    try {
+                      // Menghapus film dengan menggunakan metode deleteMovie
+                      await APIServices.deleteMovie(dataMovies[index].idMovie);
+                      print('Movie deleted successfully.');
+                    } catch (e) {
+                      print('Error: $e');
+                    }
                   },
+
                   child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
+                    // Navigasi ke halaman AddMovie untuk mengedit data film
+                    onTap: () async {
+                      final shouldRefresh =
+                          await Navigator.of(context).push<bool>(
                         MaterialPageRoute(
-                          builder: (context) => AddMovie(
-                            movieToEdit: dataMovies[index],
-                          ),
+                          builder: (context) =>
+                              AddMovie(movieToEdit: dataMovies[index]),
                         ),
                       );
+                      if (shouldRefresh == true) {
+                        fetchMovies();
+                      }
                     },
                     child: Container(
                       margin: EdgeInsets.all(10),
@@ -91,14 +115,14 @@ class _AdminHomeState extends State<AdminHome> {
                         padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
-                            imageWidget(dataMovies[index].poster),
+                            imageWidget(dataMovies[index].poster ?? ""),
                             SizedBox(width: 10),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    dataMovies[index].nama,
+                                    dataMovies[index].name ?? "",
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: TextStyle(
@@ -108,7 +132,7 @@ class _AdminHomeState extends State<AdminHome> {
                                     ),
                                   ),
                                   Text(
-                                    dataMovies[index].genre,
+                                    dataMovies[index].genre ?? "",
                                     maxLines: 2,
                                     style: TextStyle(
                                       fontSize: 10,
@@ -118,7 +142,7 @@ class _AdminHomeState extends State<AdminHome> {
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    dataMovies[index].desc,
+                                    dataMovies[index].desc ?? "",
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 3,
                                     style: TextStyle(
@@ -137,7 +161,7 @@ class _AdminHomeState extends State<AdminHome> {
                                   Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
-                                      "${dataMovies[index].durasi} m",
+                                      "${dataMovies[index].durasi} m" ?? "",
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w400,
@@ -180,16 +204,7 @@ class _AdminHomeState extends State<AdminHome> {
                   ),
                 );
               },
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
-              ),
-            );
-          }
-        },
-      ),
+            ),
     );
   }
 

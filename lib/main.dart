@@ -48,7 +48,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
   final List<Widget> _children = [
     const HomePage(),
     const ListMovieGrid(),
-    const RiwayatP(),
+    RiwayatP(),
     const Profile(),
   ];
 

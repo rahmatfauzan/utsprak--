@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart';
+import 'package:utsprak/model/api_service.dart';
+
+import 'model/api_model.dart';
 
 class AddMovie extends StatefulWidget {
-  final movie?
+  final Movie?
       movieToEdit; // Tambahkan parameter untuk data film yang akan diedit
 
   const AddMovie({Key? key, this.movieToEdit}) : super(key: key);
@@ -29,13 +30,13 @@ class _AddMovieState extends State<AddMovie> {
 
     // Jika ada data film yang akan diedit, isi TextFormField dengan nilai yang sesuai
     if (widget.movieToEdit != null) {
-      _namaController.text = widget.movieToEdit!.nama;
-      _deskripsiController.text = widget.movieToEdit!.desc;
-      _durasiController.text = widget.movieToEdit!.durasi;
-      _genreController.text = widget.movieToEdit!.genre;
-      selectedCategory = widget.movieToEdit!.kategori;
-      _linkBannerController.text = widget.movieToEdit!.banner;
-      _linkPosterController.text = widget.movieToEdit!.poster;
+      _namaController.text = widget.movieToEdit!.name!;
+      _deskripsiController.text = widget.movieToEdit!.desc!;
+      _durasiController.text = widget.movieToEdit!.durasi!;
+      _genreController.text = widget.movieToEdit!.genre!;
+      selectedCategory = widget.movieToEdit!.kategori!;
+      _linkBannerController.text = widget.movieToEdit!.banner!;
+      _linkPosterController.text = widget.movieToEdit!.poster!;
     }
   }
 
@@ -126,12 +127,12 @@ class _AddMovieState extends State<AddMovie> {
                       String linkPoster = _linkPosterController.text;
 
                       // Buat objek movie berdasarkan input pengguna
-                      movie film = movie(
+                      Movie film = Movie(
                         banner: linkBanner,
                         desc: deskripsi,
                         durasi: durasi,
                         genre: genre,
-                        nama: nama,
+                        name: nama,
                         poster: linkPoster,
                         kategori: kategori,
                       );
@@ -139,13 +140,13 @@ class _AddMovieState extends State<AddMovie> {
                       try {
                         if (widget.movieToEdit != null) {
                           // Jika ini adalah mode edit, perbarui data film
-                          await Database.updateMovie(
-                              nama: nama, updatedMovie: film);
+                          await APIServices.UpdateMovie(
+                              widget.movieToEdit!.idMovie!, film);
                         } else {
                           // Jika ini adalah mode tambah, tambahkan data film baru
-                          await Database.tambahMovie(item: film);
+                          await APIServices.addMovie(film);
                         }
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(true);
                       } catch (e) {
                         // Terjadi kesalahan saat menyimpan atau memperbarui data
                         print(e);

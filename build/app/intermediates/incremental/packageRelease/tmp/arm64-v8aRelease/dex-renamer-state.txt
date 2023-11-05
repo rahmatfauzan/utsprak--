@@ -1,4 +1,4 @@
-#Thu Nov 02 22:32:00 ICT 2023
+#Sat Nov 04 18:05:44 ICT 2023
 base.0=D\:\\flutter\\utsprak - Copy\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

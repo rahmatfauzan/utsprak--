@@ -2,53 +2,64 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:utsprak/detail_jam.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart'; // Import your data model
+import 'package:utsprak/model/api_model.dart';
+import 'package:utsprak/model/api_service.dart';
 
-class Detail extends StatelessWidget {
-  final String nama;
+class Detail extends StatefulWidget {
+  final String id;
 
-  Detail({Key? key, required this.nama}) : super(key: key);
+  Detail({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<Detail> createState() => _DetailState();
+}
+
+class _DetailState extends State<Detail> {
+  Movie dataMovie = Movie(); // Initialize dataMovie as an empty Movie object
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMovies();
+  }
+
+  void fetchMovies() async {
+    try {
+      Movie movie = await APIServices.getMovieById(widget.id);
+      setState(() {
+        dataMovie = movie;
+        isLoading = false; // Set isLoading to false after data is fetched
+      });
+    } catch (e) {
+      print("Error fetching movie: $e");
+      isLoading = false; // Set isLoading to false in case of an error
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<movie>(
-      future: Database.getMovie(
-          nama: nama), // Fetch movie data based on the provided 'nama'
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-              ),
-            ),
-          );
-          // Display a loading indicator while fetching data.
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if (snapshot.hasData) {
-          final dataMovie = snapshot.data!;
-
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: const Color(0xFF4F88F7),
-              title: Text(
-                  dataMovie.nama), // Display the movie name from the database
-            ),
-            resizeToAvoidBottomInset: false, // set it to false
-            body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF4F88F7),
+        title: Text(dataMovie.name ?? ''), // Display the movie name
+      ),
+      resizeToAvoidBottomInset: false,
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.network(dataMovie.banner,
+                    Image.network(dataMovie.banner ?? '',
                         width: 500.0, fit: BoxFit.fill),
                     const SizedBox(height: 10),
                     Text(
-                      dataMovie.nama, // Display the movie name
+                      dataMovie.name ?? '', // Display the movie name
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -63,7 +74,8 @@ class Detail extends StatelessWidget {
                         Column(
                           children: [
                             const Icon(Icons.book),
-                            Text(dataMovie.genre), // Display the movie genre
+                            Text(dataMovie.genre ??
+                                ''), // Display the movie genre
                           ],
                         ),
                         Column(
@@ -77,7 +89,7 @@ class Detail extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      dataMovie.desc, // Display the movie description
+                      dataMovie.desc ?? '', // Display the movie description
                       style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'OpenSans',
@@ -93,7 +105,8 @@ class Detail extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  TimeSelectionPage(nama: nama),
+                                  TimeSelectionPage(
+                                  id: dataMovie.idMovie ?? ''),
                             ),
                           );
                         }
@@ -104,25 +117,19 @@ class Detail extends StatelessWidget {
                           (Set<MaterialState> states) {
                             if (states.contains(MaterialState.pressed)) {
                               return dataMovie.kategori == "soon"
-                                  ? Color.fromARGB(255, 207, 20,
-                                      20) // Warna merah saat ditekan dan kategori "soon"
-                                  : const Color(
-                                      0xFFA1C5EF); // Warna saat ditekan dan kategori bukan "soon"
+                                  ? Color.fromARGB(255, 207, 20, 20)
+                                  : const Color(0xFFA1C5EF);
                             }
                             return dataMovie.kategori == "soon"
-                                ? Color.fromARGB(255, 212, 21,
-                                    21) // Warna merah saat kategori "soon"
-                                : const Color(
-                                    0xFF233269); // Warna default saat kategori bukan "soon"
+                                ? Color.fromARGB(255, 212, 21, 21)
+                                : const Color(0xFF233269);
                           },
                         ),
                         fixedSize:
                             MaterialStateProperty.all(const Size(300, 50)),
                       ),
                       child: Text(
-                        dataMovie.kategori == "soon"
-                            ? 'Soon'
-                            : 'Buy Now', // Ganti teks sesuai dengan kategori
+                        dataMovie.kategori == "soon" ? 'Soon' : 'Buy Now',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -131,17 +138,10 @@ class Detail extends StatelessWidget {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
             ),
-          );
-        } else {
-          return Text(
-              'Movie not found'); // Handle the case where the movie is not found in the database.
-        }
-      },
     );
   }
 }

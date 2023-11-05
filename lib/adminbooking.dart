@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:utsprak/model/dataclass.dart';
-import 'package:utsprak/model/dbservices.dart';
+import 'package:utsprak/model/api_model.dart';
+import 'package:utsprak/model/api_service.dart';
 
 class DataBooking extends StatefulWidget {
   const DataBooking({Key? key}) : super(key: key);
@@ -11,43 +10,63 @@ class DataBooking extends StatefulWidget {
 }
 
 class _DataBookingState extends State<DataBooking> {
+  List<BookingWithMovieInfo> riwayatPemesanan = [];
+  bool isLoading = true; // Tambahkan status loading
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBookingDataWithMovieInfo();
+  }
+
+  void fetchBookingDataWithMovieInfo() async {
+    try {
+      final List<BookingWithMovieInfo> bookings =
+          await APIServices.getBookingDataWithMovieInfo();
+
+      setState(() {
+        riwayatPemesanan = bookings;
+        isLoading = false; // Setelah data diambil, berhenti loading
+      });
+    } catch (error) {
+      print('Terjadi kesalahan: $error');
+      isLoading = false; // Set loading ke false jika terjadi kesalahan
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Data Booking"),
+        backgroundColor: const Color(0xFF4F88F7),
+        title: Text('Data Booking'),
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: Database.getBookingData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Text("Error: ${snapshot.error}");
-          } else if (snapshot.hasData) {
-            final bookingData = snapshot.data!.docs.map((doc) {
-              final data = doc.data() as Map<String, dynamic>;
-              return Booking.fromJson(data);
-            }).toList();
-
-            return ListView.builder(
-              itemCount: bookingData.length,
+      body: isLoading // Periksa status loading
+          ? Center(
+              child:
+                  CircularProgressIndicator(), // Tampilkan circular progress jika sedang loading
+            )
+          : ListView.builder(
+              padding: EdgeInsets.only(top: 5),
+              itemCount: riwayatPemesanan.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                      "Email: ${bookingData[index].email} || Judul: ${bookingData[index].film}"),
-                  subtitle: Text(
-                      "Jam: ${bookingData[index].jam} - Kursi: ${bookingData[index].kursi}"),
+                return Card(
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          riwayatPemesanan[index].movieInfo.poster ?? ""),
+                    ),
+                    title: Text(
+                      'Email: ${riwayatPemesanan[index].booking.email} || Film: ${riwayatPemesanan[index].movieInfo.name}',
+                    ),
+                    subtitle: Text(
+                      'Jam: ${riwayatPemesanan[index].booking.jam}, Kursi: ${riwayatPemesanan[index].booking.kursi}',
+                    ),
+                  ),
                 );
               },
-            );
-          } else {
-            return Text("Tidak ada data booking.");
-          }
-        },
-      ),
+            ),
     );
   }
 }
